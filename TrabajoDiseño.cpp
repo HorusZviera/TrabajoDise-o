@@ -1,6 +1,6 @@
 #include <iostream> //cin y cout
 #include <cstdlib> //rand y srand
-#include <ctime> //time y clock
+#include <chrono> //Tomar tiempo
 #include <algorithm> //sort y binary_search
 #include <random> //rand y srand
 
@@ -26,6 +26,7 @@ void generarArregloNormal(int A[], int n, double media, double desviacion) {
 
 // Busqueda binaria
 int busquedaBinaria(int A[], int n, int clave) {
+    auto start = chrono::high_resolution_clock::now();
     int inicio = 0, fin = n - 1;
     while (inicio <= fin) {
         int medio = inicio + (fin - inicio) / 2;
@@ -33,12 +34,14 @@ int busquedaBinaria(int A[], int n, int clave) {
         else if (A[medio] < clave) inicio = medio + 1;
         else fin = medio - 1;
     }
-    return -1; // Si no se encuentra la clave
+    auto end = chrono::high_resolution_clock::now();
+    auto duration = end - start;
+    double Tiempo = chrono::duration<double>(duration).count();
+    return -1,Tiempo; // Si no se encuentra la clave1  
 }
 
-int main() {
 
-
+void Caso1(){
     const int Cantidad = 10000000; // Tamano del arreglo         
     srand(time(NULL));
 
@@ -53,17 +56,10 @@ int main() {
     int claveNormal = ArregloNormal[rand() % Cantidad];
 
     // Busqueda binaria para el arreglo generado con distribucion lineal
-    clock_t inicioLineal = clock();
-    int indiceLineal = busquedaBinaria(ArregloLineal, Cantidad, claveLineal);
-    clock_t finLineal = clock();
-    double tiempo_transcurrido_lineal = double(finLineal - inicioLineal) / CLOCKS_PER_SEC * 1000000; // Tiempo en microsegundos
-
+    int indiceLineal,tiempo_transcurrido_lineal = busquedaBinaria(ArregloLineal, Cantidad, claveLineal);
 
     // Busqueda binaria para el arreglo generado con distribucion normal
-    clock_t inicioNormal = clock();
-    int indiceNormal = busquedaBinaria(ArregloNormal, Cantidad, claveNormal);
-    clock_t finNormal = clock();
-    double tiempo_transcurrido_normal = double(finNormal - inicioNormal) / CLOCKS_PER_SEC * 1000000; // Tiempo en microsegundos
+    int indiceNormal,tiempo_transcurrido_normal = busquedaBinaria(ArregloNormal, Cantidad, claveNormal);
 
     // Mostrar resultados para el arreglo con distribucion lineal
     if (indiceLineal != -1) {
@@ -88,6 +84,19 @@ int main() {
     // Liberar la memoria asignada dinamicamente
     delete[] ArregloLineal;
     delete[] ArregloNormal;
+}
 
+void Caso2(){
+    
+
+}
+
+
+int main() {
+    Caso1;
+    Caso2;
+
+
+    
     return 0;
 }
