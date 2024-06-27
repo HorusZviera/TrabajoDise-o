@@ -10,3 +10,5 @@
 queda corregir y comprobar que las funciones esten correctas
 
 -- Arreglar tema de tiempo, da el tiempo en milisegundos, pero al transformarlas a segundo no tiene sentido el tiempo, porfavor comprobar.
+
+-- Permitir que el usuario ingrese una semilla para los randoms "1,100,11000,123,144124"
