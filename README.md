@@ -1,9 +1,9 @@
 # TrabajoDise-o
 
 Uso:
-´´´bash
+```bash
 ./main -n 100 -s 256
-´´´
+```
 Donde:
 - n: tamaño del arreglo a generar
 - s: semilla usada para generar numeros aleatorios
