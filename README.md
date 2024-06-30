@@ -1,4 +1,13 @@
 # TrabajoDise-o
+
+Uso:
+´´´bash
+./main -n 100 -s 256
+´´´
+Donde:
+- n: tamaño del arreglo a generar
+- s: semilla usada para generar numeros aleatorios
+
 --- Busqueda binaria se usa en los dos casos, talvez se puede optimizar creando una funcion aparte para evitar repeticion de codigo.
 
 -- Gap-coded no funciona correctamente:
@@ -14,6 +23,7 @@ queda corregir y comprobar que las funciones esten correctas
 -- Permitir que el usuario ingrese una semilla para los randoms "1,100,11000,123,144124"
 
 
--- Cambios
+-- Cambios (sabado por la noche)
 --- Retorno de busqueda binaria, y en caso1 forma en que se recibe desde esa funcion
 --- Primer numero aleatorio limitado entre 1 y 100 (cambiable a futuro)
+-- Pide argumentos (tamaño de arreglo y semilla)

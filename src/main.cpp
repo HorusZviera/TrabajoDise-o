@@ -3,8 +3,14 @@
 #include "../include/caso1.h"
 #include "../include/caso2.h"
 #include "../include/caso3.h"
+#include "../include/argumentos.h"
 
-int main() {
+int main(int argc, char* argv[]) {
+    // Argumentos
+    int tamanio;
+    int semilla;
+
+    procesarArgumentos(argc, argv, tamanio, semilla);
 
     int opcion;
         do {
@@ -15,8 +21,8 @@ int main() {
             cout << "Ingrese su opcion: ";
             cin >> opcion;
 
-    const int Cantidad = 100000; // Tamano del arreglo         
-    srand(time(NULL));
+    const int Cantidad = tamanio; // Tamano del arreglo         
+    srand(semilla);
 
     int *ArregloLineal = new int[Cantidad]; //arreglo Lineal
     int *ArregloNormal = new int[Cantidad]; //arreglo Normal
