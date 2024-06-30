@@ -12,3 +12,8 @@ queda corregir y comprobar que las funciones esten correctas
 -- Arreglar tema de tiempo, da el tiempo en milisegundos, pero al transformarlas a segundo no tiene sentido el tiempo, porfavor comprobar.
 
 -- Permitir que el usuario ingrese una semilla para los randoms "1,100,11000,123,144124"
+
+
+-- Cambios
+--- Retorno de busqueda binaria, y en caso1 forma en que se recibe desde esa funcion
+--- Primer numero aleatorio limitado entre 1 y 100 (cambiable a futuro)
