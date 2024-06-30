@@ -22,7 +22,7 @@ int main() {
     int *ArregloNormal = new int[Cantidad]; //arreglo Normal
 
     generarArregloLineal(ArregloLineal, Cantidad, 10);  // Generar arreglo ordenado con valores aleatorios de forma lineal
-    generarArregloNormal(ArregloNormal, Cantidad, 100, 20); /// Generar arreglo ordenado con valores aleatorios segun una distribucion normal
+    generarArregloNormal(ArregloNormal, Cantidad, 100, 20); // Generar arreglo ordenado con valores aleatorios segun una distribucion normal
 
     switch (opcion) {
         case 1:

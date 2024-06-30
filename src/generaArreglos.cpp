@@ -2,7 +2,7 @@
 
 // Funcion para generar un arreglo ordenado con valores aleatorios segun una distribucion lineal
 void generarArregloLineal(int A[], int n, int Incremento) {
-    A[0] = rand();
+    A[0] = rand() % 101;
     for (int i = 1; i < n; ++i) {
         A[i] = A[i - 1] + rand() % Incremento;
     }
