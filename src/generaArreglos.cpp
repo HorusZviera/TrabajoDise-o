@@ -28,11 +28,15 @@ void crearGapCoding(int A[], int GC[], int n) {
 }
 
 //Crear la estructura vector "Sample"
-vector<int> crearSample(int A[],int n, int m){
+vector<int> crearSample(int A[],int n, int m ){ //m: tamaño sample, n: tamaño arreglo A
     vector<int> sample;
-    int b = n / m;
-    for (int i = 0; i < n; i += b) {
-        sample.push_back(A[i]); //Se añade al final
+    int b = (n / m); //saltos en el arreglo A
+    cout << b << endl;
+    
+    int i = 0;
+    while (i < n && sample.size() < m) {
+        sample.push_back(A[i]); //e añade al final
+        i += b;
     }
     return sample;
 }

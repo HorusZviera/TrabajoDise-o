@@ -22,25 +22,40 @@ pair<int,double> busquedaBinaria(int A[], int n, int clave) {
 }
 
 // Búsqueda binaria en arreglo Gap-Coded
-int busquedaBinariaGapCoding(int GC[], const vector<int>& sample, int n, int clave, int b) {
+pair<int,double> busquedaBinariaGapCoding(int GC[], const vector<int>& sample, int n, int clave, int b) {
     auto start = chrono::high_resolution_clock::now();
-    int Izquierda = 0;
-    int Derecha = n - 1;
-    while (Izquierda <= Derecha) {
-        int mitad = Izquierda + (Derecha - Izquierda) / 2;
-        int Valor = reconstruirValor(GC, sample, mitad, b);
-        if (Valor == clave) {
-            return mitad;
-        } else if (Valor < clave) {
-            Izquierda = mitad + 1;
+    int inicio = 0;
+    int fin = n - 1;
+    int medio;
+    cout<<"Sample de busqedabin"<<endl;
+    imprimirVector(sample);
+    while (inicio <= fin) {
+        medio = inicio + (fin - inicio) / 2;
+        // int Valor = reconstruirValor(GC, sample, medio, b);
+        cout<<sample[medio] << " ";
+        if (sample[medio] == clave) {
+            auto end = chrono::high_resolution_clock::now();
+            auto duration = end - start;
+            double Tiempo = chrono::duration<double, milli>(duration).count();
+            return {medio,Tiempo};
+        } else if (sample[medio] < clave) {
+            inicio = medio + 1;
         } else {
-            Derecha = mitad - 1;
+            fin = medio - 1;
         }
     }
+    cout<<endl;
+
+    int valor = reconstruirValor(GC, sample, medio, b);
+    while(valor!=clave){
+        medio++;
+        valor = reconstruirValor(GC, sample, medio, b);
+    }
+    
     auto end = chrono::high_resolution_clock::now();
     auto duration = end - start;
     double Tiempo = chrono::duration<double, milli>(duration).count();
-    return -1,Tiempo;
+    return {medio,Tiempo};
 }
 
 // Reconstruir valor original usando Gap-Coding y sample
@@ -51,3 +66,5 @@ int reconstruirValor(int GC[], const vector<int>& sample, int index, int b) {
     }
     return value;
 }
+
+
