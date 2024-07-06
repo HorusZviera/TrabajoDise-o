@@ -1,7 +1,5 @@
 #include "../include/caso2.h"
 
-
-
 void Caso2(int ArregloLineal[], int ArregloNormal[],int Cantidad){
     int* GC_Lineal = new int[Cantidad]; //Arreglo Gap-Coded Lineal
     int* GC_Normal = new int[Cantidad]; //Arreglo Gap-Coded Normal
@@ -10,9 +8,11 @@ void Caso2(int ArregloLineal[], int ArregloNormal[],int Cantidad){
     crearGapCoding(ArregloNormal, GC_Normal, Cantidad);
 
     //Estructura "Sample"
-    int m = 100;
+    int m = 3;
     vector<int> sampleLineal = crearSample(ArregloLineal, Cantidad, m);
     vector<int> sampleNormal = crearSample(ArregloNormal, Cantidad, m);
+
+    //imprimirArreglo(sampleLineal,Cantidad);
 
     // Datos Busqueda binaria
     int claveLineal = ArregloLineal[rand() % Cantidad];

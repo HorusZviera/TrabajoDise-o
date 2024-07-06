@@ -1,13 +1,5 @@
 #include "../include/caso1.h"
 
-void imprimirArreglo(int A[], int n) {
-    cout << "Arreglo:";
-    for (int i = 0; i < n; ++i) {
-        cout << " " << A[i];
-    }
-    cout << endl;
-}
-
 void Caso1(int ArregloLineal[], int ArregloNormal[],int Cantidad){
 
     // Datos Busqueda binaria
@@ -30,6 +22,7 @@ void Caso1(int ArregloLineal[], int ArregloNormal[],int Cantidad){
     }
     cout << endl;
     cout << "Tiempo transcurrido: " << resultadoLineal.second << " milisegundos." << endl << endl;
+    
     // Mostrar resultados para el arreglo con distribucion normal
     if (resultadoNormal.first != -1) {
         cout << endl << "Para el arreglo con distribucion normal: ";
@@ -39,6 +32,7 @@ void Caso1(int ArregloLineal[], int ArregloNormal[],int Cantidad){
         cout << "La clave " << claveNormal << " no se encontro en el arreglo." << endl;
     }
     cout << "Tiempo transcurrido: " << resultadoNormal.second << " milisegundos." << endl << endl;
+
     // Liberar la memoria asignada dinamicamente
     delete[] ArregloLineal;
     delete[] ArregloNormal;

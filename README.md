@@ -1,9 +1,9 @@
 # TrabajoDise-o
 
 Uso:
-```bash
+´´´bash
 ./main -n 100 -s 256
-```
+´´´
 Donde:
 - n: tamaño del arreglo a generar
 - s: semilla usada para generar numeros aleatorios
@@ -21,6 +21,8 @@ queda corregir y comprobar que las funciones esten correctas
 -- Arreglar tema de tiempo, da el tiempo en milisegundos, pero al transformarlas a segundo no tiene sentido el tiempo, porfavor comprobar.
 
 -- Permitir que el usuario ingrese una semilla para los randoms "1,100,11000,123,144124"
+
+-- Quizas la creacion de sample se pueda mejorar para un caso borde
 
 
 -- Cambios (sabado por la noche)

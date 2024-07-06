@@ -12,8 +12,9 @@ void generarArregloLineal(int A[], int n, int Incremento) {
 void generarArregloNormal(int A[], int n, double media, double desviacion) {
     default_random_engine generator;
     normal_distribution <double> distribution (media, desviacion);
+    
     for (int i = 0; i < n; ++i) {
-        A[i] = distribution(generator);
+        A[i] = static_cast<int>(distribution(generator));
     }
     sort(A, A + n);
 }
@@ -34,5 +35,20 @@ vector<int> crearSample(int A[],int n, int m){
         sample.push_back(A[i]); //Se añade al final
     }
     return sample;
+}
+
+// Imprime arreglos
+void imprimirArreglo(const int arr[], int n) {
+    for (int i = 0; i < n; ++i) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+void imprimirVector(const vector<int>& vec) {
+    for (int i = 0; i < vec.size(); ++i) {
+        cout << vec[i] << " ";
+    }
+    cout << endl;
 }
 
