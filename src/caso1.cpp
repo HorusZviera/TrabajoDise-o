@@ -21,8 +21,9 @@ void Caso1(int ArregloLineal[], int ArregloNormal[],int Cantidad){
         cout << "La clave " << claveLineal << " no se encontro en el arreglo." << endl;
     }
     cout << endl;
-    cout << "Tiempo transcurrido: " << resultadoLineal.second << " milisegundos." << endl << endl;
-    
+    //cout << "Tiempo transcurrido: " << resultadoLineal.second << " Segundos." << endl << endl;
+    cout << "Tiempo transcurrido: " << fixed << setprecision(10) << resultadoLineal.second << " Segundos." << endl << endl;
+
     // Mostrar resultados para el arreglo con distribucion normal
     if (resultadoNormal.first != -1) {
         cout << endl << "Para el arreglo con distribucion normal: ";
@@ -31,7 +32,7 @@ void Caso1(int ArregloLineal[], int ArregloNormal[],int Cantidad){
         cout << endl << "Para el arreglo con distribucion normal: ";
         cout << "La clave " << claveNormal << " no se encontro en el arreglo." << endl;
     }
-    cout << "Tiempo transcurrido: " << resultadoNormal.second << " milisegundos." << endl << endl;
+    cout << "Tiempo transcurrido: " << fixed << setprecision(10) << resultadoNormal.second << " Segundos." << endl << endl;
 
     // Liberar la memoria asignada dinamicamente
     delete[] ArregloLineal;

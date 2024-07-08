@@ -10,6 +10,10 @@ void procesarArgumentos(int argc, char* argv[], int& tamanio, int& semilla) {
         switch (opcion) {
             case 'n':
                 tamanio = atoi(optarg); // Tamaño del arreglo
+                if (tamanio <= 0 || tamanio >= 1000000000) {
+                    cout << "El tamaño del arreglo debe estar entre 1 y 1,000,000,000" << endl;
+                    exit(EXIT_FAILURE);
+                }
                 break;
             case 's':
                 semilla = atoi(optarg); // Establece semilla 

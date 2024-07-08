@@ -35,7 +35,14 @@ int main(int argc, char* argv[]) {
                 Caso1(ArregloLineal,ArregloNormal,Cantidad);
                 break;
             case 2:
-                Caso2(ArregloLineal,ArregloNormal,Cantidad);
+                int m;
+                cout << "Ingrese el tamaño de la estructura sample: ";
+                cin >> m;
+                if (m <= 0 || m >= Cantidad) {
+                    cout << "El valor de m debe ser mayor a 0 y menor a " << Cantidad << ". Intente de nuevo." << endl;
+                    continue;
+                }
+                Caso2(ArregloLineal,ArregloNormal,Cantidad,m);
                 break;
             case 3:
                 cout << "Saliendo del programa." << endl;

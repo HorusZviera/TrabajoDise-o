@@ -27,16 +27,18 @@ void crearGapCoding(int A[], int GC[], int n) {
     }
 }
 
-//Crear la estructura vector "Sample"
-vector<int> crearSample(int A[],int n, int m ){ //m: tamaño sample, n: tamaño arreglo A
-    vector<int> sample;
+//Crear la estructura arreglo dinamico "Sample"
+int* crearSample(int A[], int n, int m) { //m: tamaño sample, n: tamaño arreglo A
+    int* sample = new int[m];
     int b = (n / m); //saltos en el arreglo A
     cout << b << endl;
-    
+
     int i = 0;
-    while (i < n && sample.size() < m) {
-        sample.push_back(A[i]); //e añade al final
+    int j = 0;
+    while (i < n && j < m) {
+        sample[j] = A[i];
         i += b;
+        j++;
     }
     return sample;
 }
@@ -48,11 +50,3 @@ void imprimirArreglo(const int arr[], int n) {
     }
     cout << endl;
 }
-
-void imprimirVector(const vector<int>& vec) {
-    for (int i = 0; i < vec.size(); ++i) {
-        cout << vec[i] << " ";
-    }
-    cout << endl;
-}
-

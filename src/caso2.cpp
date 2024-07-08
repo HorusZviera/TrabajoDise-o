@@ -1,6 +1,6 @@
 #include "../include/caso2.h"
 
-void Caso2(int ArregloLineal[], int ArregloNormal[],int Cantidad){
+void Caso2(int ArregloLineal[], int ArregloNormal[],int Cantidad,int m){
     int* GC_Lineal = new int[Cantidad]; //Arreglo Gap-Coded Lineal
     int* GC_Normal = new int[Cantidad]; //Arreglo Gap-Coded Normal
 
@@ -8,22 +8,23 @@ void Caso2(int ArregloLineal[], int ArregloNormal[],int Cantidad){
     crearGapCoding(ArregloLineal, GC_Lineal, Cantidad);
     crearGapCoding(ArregloNormal, GC_Normal, Cantidad);
 
-    //Estructura "Sample"
-    int m = 4; // ---------------------------------------------------------------> pedir al usuario
-    vector<int> sampleLineal = crearSample(ArregloLineal, Cantidad, m);
-    vector<int> sampleNormal = crearSample(ArregloNormal, Cantidad, m);
+    //Estructura "Sample" "Con m ingresado por el usuario"
+    int* sampleLineal = crearSample(ArregloLineal, Cantidad, m);
+    int* sampleNormal = crearSample(ArregloNormal, Cantidad, m);
 
+    
     cout<<"Lineal"<<endl;
     imprimirArreglo(ArregloLineal,Cantidad);
     imprimirArreglo(GC_Lineal,Cantidad);
-    imprimirVector(sampleLineal);
+    imprimirArreglo(sampleLineal, m);
     cout<<"####################"<<endl;
     
     cout<<"Normal"<<endl;
     imprimirArreglo(ArregloNormal,Cantidad);
     imprimirArreglo(GC_Normal,Cantidad);
-    imprimirVector(sampleNormal);
+    imprimirArreglo(sampleNormal, m);
     cout<<endl;
+    
 
     // Datos Busqueda binaria
     int claveLineal = ArregloLineal[rand() % Cantidad];
@@ -39,8 +40,7 @@ void Caso2(int ArregloLineal[], int ArregloNormal[],int Cantidad){
     } else {
         cout << "La clave " << claveLineal << " no se encontro en el arreglo." << endl;
     }
-    cout << "Tiempo transcurrido: " << resultadoLineal.second << " milisegundos." << endl;
-
+    cout << "Tiempo transcurrido: " << fixed << setprecision(10) << resultadoLineal.second << " Segundos." << endl << endl;
 
    // Búsqueda binaria Gap-coded Normal
    auto resultadoNormal = busquedaBinariaGapCoding(GC_Normal, sampleNormal, m, claveNormal, b);
@@ -50,7 +50,7 @@ void Caso2(int ArregloLineal[], int ArregloNormal[],int Cantidad){
     } else {
         cout << "La clave " << claveNormal << " no se encontro en el arreglo." << endl << endl ;
     }
-    cout << "Tiempo transcurrido: " << resultadoNormal.second << " milisegundos." << endl;
+    cout << "Tiempo transcurrido: " << fixed << setprecision(10) << resultadoNormal.second << " Segundos." << endl << endl;
     
 
     // Liberar la memoria asignada dinámicamente

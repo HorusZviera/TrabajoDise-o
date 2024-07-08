@@ -13,11 +13,8 @@ Cambios (sabado por la noche)
 
 -- CASO 3 NO ESTA TERMINADO!!!!!!!!!!!!!!1
 
-
--- tambien pedir m (tamaño de sample) al usuario en argumento
--- Comprobar que n en la ejecucion no permita sobre 10000000 (Falta especificar valor maximo en funcion del "crearSample") 
--- Sample podria ser un arreglo en vez de un vector, para reciclar busqueda binaria en una funcion
-
+-- reciclar busqueda binaria en una funcion
+-- Ir limpiando los comentarios y los codigos de prueba
 
 
 Para el informe
