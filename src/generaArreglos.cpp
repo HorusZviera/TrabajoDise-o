@@ -50,3 +50,41 @@ void imprimirArreglo(const int arr[], int n) {
     }
     cout << endl;
 }
+
+// Función para imprimir el mapa de frecuencias
+void imprimirMapa(const unordered_map<int, unsigned>& mapaFrecuencias) {
+    for (const auto& par : mapaFrecuencias) {
+        cout << "Valor: " << par.first << " - Frecuencia: " << par.second << endl;
+    }
+}
+
+// Función para imprimir un mapa de (int, string)
+void imprimirMapa(const unordered_map<int, string>& mapaFrecuencias) {
+    for (const auto& par : mapaFrecuencias) {
+        cout << "Clave: " << par.first << " - Valor: " << par.second << endl;
+    }
+}
+
+/*
+long long getRAMUsage() {
+    struct rusage r_usage;
+    getrusage(RUSAGE_SELF, &r_usage);
+    return r_usage.ru_maxrss;
+}
+*/
+
+
+/*
+int main() {
+    // Llamar a tu función y medir el uso de RAM antes y después
+    long long ramBefore = getRAMUsage();
+    myFunction();
+    long long ramAfter = getRAMUsage();
+
+    // Calcular la diferencia de uso de RAM
+    long long ramUsage = ramAfter - ramBefore;
+
+    std::cout << "Uso de RAM durante la ejecución: " << ramUsage << " bytes" << std::endl;
+
+    return 0;
+*/

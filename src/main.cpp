@@ -17,7 +17,8 @@ int main(int argc, char* argv[]) {
         cout << "Que caso quiere ejecutar?" << endl;
         cout << "1. Caso 1 (Arreglo explicito)" << endl;
         cout << "2. Caso 2 (Arreglo representado con Gap-Coding)" << endl;
-        cout << "3. Salir" << endl;
+        cout << "3. Caso 3 (Codifcacion dde Huffman)" << endl;
+        cout << "4. Salir" << endl;
         cout << "Ingrese su opcion: ";
         cin >> opcion;
 
@@ -45,6 +46,15 @@ int main(int argc, char* argv[]) {
                 Caso2(ArregloLineal,ArregloNormal,Cantidad,m);
                 break;
             case 3:
+                cout << "Ingrese el tamaño de la estructura sample: ";
+                cin >> m;
+                if (m <= 0 || m >= Cantidad) {
+                    cout << "El valor de m debe ser mayor a 0 y menor a " << Cantidad << ". Intente de nuevo." << endl;
+                    continue;
+                }
+                Caso3(ArregloLineal,ArregloNormal,Cantidad,m);
+                break;
+            case 4:
                 cout << "Saliendo del programa." << endl;
                 break;
             default:

@@ -1,41 +1,22 @@
 #include "../include/caso3.h"  // Se incluye el archivo de encabezado caso3.h
 
-
-
-// Estructura para representar un nodo en el árbol de Huffman
-struct NodoHuffman {
-    int valor;                  // Valor almacenado en el nodo
-    unsigned frecuencia;        // Frecuencia de aparición del valor
-    NodoHuffman* izquierdo;      // Puntero al hijo izquierdo del nodo
-    NodoHuffman* derecho;       // Puntero al hijo derecho del nodo
-
-    NodoHuffman(int valor, unsigned frecuencia) : valor(valor), frecuencia(frecuencia), izquierdo(nullptr), derecho(nullptr) {}
-};
-
-// Función para comparar nodos Huffman según su frecuencia (mayor frecuencia primero)
-struct CompararNodos {
-    bool operator()(NodoHuffman* a, NodoHuffman* b) {
-        return a->frecuencia > b->frecuencia;
-    }
-};
-
 // Función para construir el árbol de Huffman
-NodoHuffman* construirArbolHuffman(const std::unordered_map<int, unsigned>& mapaFrecuencias) {
-    std::priority_queue<NodoHuffman*, std::vector<NodoHuffman*>, CompararNodos> colaPrioridad;
+Nodo* construirArbolHuffman(const unordered_map<int, unsigned>& mapaFrecuencias) {
+   priority_queue<Nodo*,vector<Nodo*>, CompararNodos> colaPrioridad;
 
     // Crear un nodo hoja para cada valor único y agregarlo a la cola de prioridad
     for (const auto& par : mapaFrecuencias) {
-        colaPrioridad.push(new NodoHuffman(par.first, par.second));
+        colaPrioridad.push(new Nodo(par.first, par.second));
     }
 
     // Construir el árbol de Huffman fusionando nodos de la cola de prioridad
     while (colaPrioridad.size() > 1) {
-        NodoHuffman* izquierdo = colaPrioridad.top();
+        Nodo* izquierdo = colaPrioridad.top();
         colaPrioridad.pop();
-        NodoHuffman* derecho = colaPrioridad.top();
+        Nodo* derecho = colaPrioridad.top();
         colaPrioridad.pop();
 
-        NodoHuffman* nuevoNodo = new NodoHuffman(-1, izquierdo->frecuencia + derecho->frecuencia);
+        Nodo* nuevoNodo = new Nodo(-1, izquierdo->frecuencia + derecho->frecuencia);
         nuevoNodo->izquierdo = izquierdo;
         nuevoNodo->derecho = derecho;
 
@@ -45,8 +26,26 @@ NodoHuffman* construirArbolHuffman(const std::unordered_map<int, unsigned>& mapa
     return colaPrioridad.top();
 }
 
+void imprimirArbolHuffman(Nodo* nodo, int nivel = 0) {
+    if (nodo == nullptr) {
+        return;
+    }
+
+    // Imprimir espacios en blanco para representar la profundidad del nodo
+    for (int i = 0; i < nivel; i++) {
+        cout << "  ";
+    }
+
+    // Imprimir el valor y la frecuencia del nodo
+    cout << nodo->valor << " (" << nodo->frecuencia << ")" << endl;
+
+    // Recursivamente imprimir los hijos izquierdo y derecho
+    imprimirArbolHuffman(nodo->izquierdo, nivel + 1);
+    imprimirArbolHuffman(nodo->derecho, nivel + 1);
+}
+
 // Función para generar códigos Huffman para cada valor en el árbol de Huffman
-void generarCodigosHuffman(NodoHuffman* raiz, std::unordered_map<int, std::string>& codigos, std::string codigo = "") {
+void generarCodigosHuffman(Nodo* raiz,unordered_map<int,string>& codigos,string codigo = "") {
     if (raiz->izquierdo == nullptr && raiz->derecho == nullptr) {
         codigos[raiz->valor] = codigo;
         return;
@@ -56,29 +55,107 @@ void generarCodigosHuffman(NodoHuffman* raiz, std::unordered_map<int, std::strin
     generarCodigosHuffman(raiz->derecho, codigos, codigo + "1");
 }
 
-void Caso3(int ArregloLineal[], int ArregloNormal[], int Cantidad) {
-    // Calcular la frecuencia de cada valor en el arreglo lineal
-    std::unordered_map<int, unsigned> mapaFrecuencias;
+
+
+void Caso3(int ArregloLineal[], int ArregloNormal[], int Cantidad, int m) {
+
+    int* GC_Lineal = new int[Cantidad]; //Arreglo Gap-Coded Lineal
+    int* GC_Normal = new int[Cantidad]; //Arreglo Gap-Coded Normal
+
+    // Crea gap coding
+    crearGapCoding(ArregloLineal, GC_Lineal, Cantidad);
+    crearGapCoding(ArregloNormal, GC_Normal, Cantidad);
+
+    //Estructura "Sample" "Con m ingresado por el usuario"
+    int* sampleLineal = crearSample(ArregloLineal, Cantidad, m);
+    int* sampleNormal = crearSample(ArregloNormal, Cantidad, m);
+
+    // Codificacion Arreglo Lineal
+    unordered_map<int, unsigned> mapaFrecuenciasLineal;
     for (int i = 0; i < Cantidad; i++) {
-        mapaFrecuencias[ArregloLineal[i]]++;
+        mapaFrecuenciasLineal[GC_Lineal[i]]++; // Calcular la frecuencia de cada valor en el arreglo lineal
     }
 
-    // Construir el árbol de Huffman
-    NodoHuffman* raiz = construirArbolHuffman(mapaFrecuencias);
+    Nodo* raiz_Lineal = construirArbolHuffman(mapaFrecuenciasLineal);    // Construir el árbol de Huffman    
+    
+    unordered_map<int,string> codigosHuffmanLineal;
+    generarCodigosHuffman(raiz_Lineal, codigosHuffmanLineal); // Generar códigos Huffman para cada valor en el árbol de Huffman
+    
 
-    // Generar códigos Huffman para cada valor en el árbol de Huffman
-    std::unordered_map<int, std::string> codigosHuffman;
-    generarCodigosHuffman(raiz, codigosHuffman);
 
-    // Comprimir el arreglo lineal usando los códigos Huffman
+    
+    cout<<"Lineal"<<endl;
+    imprimirArreglo(ArregloLineal,Cantidad);
+    imprimirArreglo(GC_Lineal,Cantidad);
+    imprimirArreglo(sampleLineal, m);
+
+    cout << "Códigos Huffman Arreglo Lineal:" << endl;  // Imprimir los códigos Huffman generados
+    for (const auto& par : codigosHuffmanLineal) {
+        cout << par.first << ": " << par.second << endl;
+    }
+    cout << endl << endl << endl ;
+
+    for (int i = 0; i < Cantidad; ++i) {
+        cout << GC_Lineal[i] << endl;
+    }
+    imprimirArreglo(GC_Lineal,Cantidad);
+
+    cout<<"####################"<<endl;
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
+    // Codificacion Arreglo Normal
+    unordered_map<int, unsigned> mapaFrecuenciasNormal;
     for (int i = 0; i < Cantidad; i++) {
-        ArregloNormal[i] = std::stoi(codigosHuffman[ArregloLineal[i]], nullptr, 2);
+        mapaFrecuenciasNormal[ArregloNormal[i]]++; // Calcular la frecuencia de cada valor en el arreglo Normal
     }
 
-    // TODO: Manejar valores atípicos para evitar una degradación significativa de la compresión
+    Nodo* raiz_Normal = construirArbolHuffman(mapaFrecuenciasNormal); // Construir el árbol de Huffman
+
+    unordered_map<int,string> codigosHuffmanNormal; 
+    generarCodigosHuffman(raiz_Normal, codigosHuffmanNormal); // Generar códigos Huffman para cada valor en el árbol de Huffman
+    
+    cout << "Códigos Huffman Arreglo Normal:" << endl; // Imprimir los códigos Huffman generados
+    for (const auto& par : codigosHuffmanNormal) {
+        cout << par.first << ": " << par.second << endl;
+    }
+    cout << endl << endl << endl;
+    */
+    
 }
 
+
+
+
+
 /*
-  Comentario final:
-  - Los datos se consideran fijos ("const").
+    // Funciones que pueden ayudar
+        imprimirMapa(mapaFrecuencias); // Se imprime el mapa de frecuencias
+        imprimirArbolHuffman(raiz_Lineal); // Imprimir el árbol de Huffman
 */
+
+
+
+
+

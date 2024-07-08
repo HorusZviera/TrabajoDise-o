@@ -13,7 +13,7 @@ Cambios (sabado por la noche)
 
 -- CASO 3 NO ESTA TERMINADO!!!!!!!!!!!!!!1
 
--- reciclar busqueda binaria en una funcion
+-- reciclar busqueda binaria en una funcion (caso 2)
 -- Ir limpiando los comentarios y los codigos de prueba
 
 
