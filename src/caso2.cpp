@@ -39,11 +39,12 @@ void Caso2(int ArregloLineal[], int ArregloNormal[],int Cantidad,int m){
     
 
     // Liberar la memoria asignada dinamicamente
-    delete[] ArregloLineal;
-    delete[] ArregloNormal;
     delete[] GC_Lineal;
     delete[] GC_Normal;
-
+    delete[] sampleLineal;
+    delete[] sampleNormal;
+    delete[] ArregloLineal;
+    delete[] ArregloNormal;
 }
 
 

@@ -129,3 +129,6 @@ m: Un valor entero proporcionado por el usuario que se utiliza para crear estruc
 - **Búsqueda Binaria en Arreglos Gap-Coded**: Realiza una búsqueda binaria en los arreglos codificados por brechas (GC_Lineal y GC_Normal) para encontrar las claves seleccionadas. La función busquedaBinariaGapCoding devuelve un par que contiene el índice de la clave (si se encuentra) y el tiempo transcurrido durante la búsqueda. Los resultados de la búsqueda, incluyendo si la clave fue encontrada y el tiempo que tomó encontrarla, se imprimen en la consola.
 
 - **Liberación de Memoria**: Finalmente, la función libera la memoria asignada dinámicamente para los arreglos GC_Lineal, GC_Normal, sampleLineal, y sampleNormal, así como para los arreglos originales ArregloLineal y ArregloNormal, utilizando delete[].
+
+
+prueba mia
