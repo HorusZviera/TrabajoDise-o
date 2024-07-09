@@ -55,24 +55,24 @@ pair<int,double> busquedaBinariaGapCoding(int GC[], int* sample, int Cantidad, i
     return {resultado.first,Tiempo};
 }
 
-pair<int,double> busquedaBinariaHuffman(Nodo* root, bitset<8>* GC_Huffman[], int GC[], int* sample, int Cantidad, int n, int clave, int b) {
+pair<int,double> busquedaBinariaHuffman(Nodo* root, bitset<8>* GC_Huffman, int GC[], int* sample, int Cantidad, int n, int clave, int b) {
     // Inicia el tiempo
     auto start = chrono::high_resolution_clock::now();
 
     auto resultado=busquedaBinaria(sample,n,clave,true); // Realiza la busqueda binaria sobre el sample
     resultado.first*=b; // Salta al indice correspondiente en el arreglo
-    //imprimirArbolHuffman(root);
     // Busqueda lineal sobre el intervalo obtenido por el sample
-    cout<<"Encontro: "<<resultado.first<<endl;
-    int valor=decodeHuffman(root, *GC_Huffman[resultado.first]);
-    cout<<"Gap: "<<valor<<endl;
+
+    //imprimirArbolHuffman(root);
+    //cout<<"Encontro: "<<resultado.first<< " "<<GC_Huffman[80]<<endl;
+    int valor=decodeHuffman(root, GC_Huffman[resultado.first]);
+    //cout<<"Gap: "<<valor<<endl;
     valor = decodeGap(GC,Cantidad,resultado.first);
-    cout<<"Valor: "<<valor<<endl;
-    cout<<"Clave: "<<clave<<endl;
-    while(valor!=clave && resultado.first<15){
+    //cout<<"Valor: "<<valor<<endl;
+    //cout<<"Clave: "<<clave<<endl;
+    while(valor!=clave){
         resultado.first++;
         valor+=GC[resultado.first];
-        cout<< resultado.first <<" "<< valor <<endl;
     }
     
     auto end = chrono::high_resolution_clock::now();

@@ -33,7 +33,6 @@ void crearGapCoding(int A[], int GC[], int n) {
 int* crearSample(int A[], int n, int m) { //m: tamano sample, n: tamano arreglo A
     int* sample = new int[m];
     int b = (n / m); //saltos en el arreglo A
-    cout << b << endl;
 
     int i = 0;
     int j = 0;

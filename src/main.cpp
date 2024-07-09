@@ -29,48 +29,44 @@ int main(int argc, char* argv[]) {
     generarArregloLineal(ArregloLineal, Cantidad, 10);  // Generar arreglo ordenado con valores aleatorios de forma lineal
     generarArregloNormal(ArregloNormal, Cantidad, 100, 20); // Generar arreglo ordenado con valores aleatorios segun una distribucion normal
 
-    do {
-        cout << ANSI_COLOR_BLUE << "==================================" << endl;
-        cout << "============== Menú ==============" << endl;
-        cout << "==================================" << endl;
-        cout << ANSI_COLOR_GREEN << "1. "  << "Caso 1 (Arreglo explicito)" << endl;
-        cout << "2. " <<  "Caso 2 (Arreglo representado con Gap-Coding)" << endl;
-        cout << "3. " <<  "Caso 3 (Codificacion de Huffman)" << endl;
-        cout << ANSI_COLOR_RED << "4. " <<  "Salir" << endl;
-        cout << ANSI_COLOR_BLUE << "Ingrese su opción: " << ANSI_COLOR_RESET;
-        cin >> opcion;
+    cout << ANSI_COLOR_BLUE << "==================================" << endl;
+    cout << "============== Menú ==============" << endl;
+    cout << "==================================" << endl;
+    cout << ANSI_COLOR_GREEN << "1. "  << "Caso 1 (Arreglo explicito)" << endl;
+    cout << "2. " <<  "Caso 2 (Arreglo representado con Gap-Coding)" << endl;
+    cout << "3. " <<  "Caso 3 (Codificacion de Huffman)" << endl;
+    cout << ANSI_COLOR_RED << "4. " <<  "Salir" << endl;
+    cout << ANSI_COLOR_BLUE << "Ingrese su opción: " << ANSI_COLOR_RESET;
+    cin >> opcion;
 
-        switch (opcion) {
-            case 1:
-                Caso1(ArregloLineal,ArregloNormal,Cantidad);
-                break;
-            case 2:
-                int m;
-                cout << "Ingrese el tamaño de la estructura sample: ";
-                cin >> m;
-                if (m <= 0 || m >= Cantidad) {
-                    cout << "El valor de m debe ser mayor a 0 y menor a " << Cantidad << ". Intente de nuevo." << endl;
-                    continue;
-                }
+    switch (opcion) {
+        case 1:
+            Caso1(ArregloLineal,ArregloNormal,Cantidad);
+            break;
+        case 2:
+            int m;
+            cout << "Ingrese el tamaño de la estructura sample: ";
+            cin >> m;
+            if (m <= 0 || m >= Cantidad)
+                cout << "El valor de m debe ser mayor a 0 y menor a " << Cantidad << ". Intente de nuevo." << endl;
+            else
                 Caso2(ArregloLineal,ArregloNormal,Cantidad,m);
-                break;
-            case 3:
-                cout << "Ingrese el tamaño de la estructura sample: ";
-                cin >> m;
-                if (m <= 0 || m >= Cantidad) {
-                    cout << "El valor de m debe ser mayor a 0 y menor a " << Cantidad << ". Intente de nuevo." << endl;
-                    continue;
-                }
+            break;
+        case 3:
+            cout << "Ingrese el tamaño de la estructura sample: ";
+            cin >> m;
+            if (m <= 0 || m >= Cantidad) 
+                cout << "El valor de m debe ser mayor a 0 y menor a " << Cantidad << ". Intente de nuevo." << endl;
+            else 
                 Caso3(ArregloLineal,ArregloNormal,Cantidad,m);
-                break;
-            case 4:
-                cout << "Saliendo del programa." << endl;
-                break;
-            default:
-                cout << "Opcion no valida. Intente de nuevo." << endl;
-        }
-        cout << endl;
-    } while (opcion != 3);
+            break;
+        case 4:
+            cout << "Saliendo del programa." << endl;
+            break;
+        default:
+            cout << "Opcion no valida." << endl;
+    }
+    cout << endl;
 
     return 0;
 }
