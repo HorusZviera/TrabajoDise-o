@@ -62,6 +62,13 @@ void Caso3(int ArregloLineal[], int ArregloNormal[], int Cantidad, int m) {
     int* GC_Lineal = new int[Cantidad]; //Arreglo Gap-Coded Lineal
     int* GC_Normal = new int[Cantidad]; //Arreglo Gap-Coded Normal
 
+    int claveLineal = ArregloLineal[rand() % Cantidad];
+    int claveNormal = ArregloNormal[rand() % Cantidad];
+
+    int b = Cantidad / m;
+
+    bitset<8>* GC_Lineal_Comprimido = new bitset<8>[Cantidad];
+
     // Crea gap coding
     crearGapCoding(ArregloLineal, GC_Lineal, Cantidad);
     crearGapCoding(ArregloNormal, GC_Normal, Cantidad);
@@ -95,10 +102,20 @@ void Caso3(int ArregloLineal[], int ArregloNormal[], int Cantidad, int m) {
     }
     cout << endl << endl << endl ;
 
-    for (int i = 0; i < Cantidad; ++i) {
-        cout << GC_Lineal[i] << endl;
+    for(int i=0;i<Cantidad;i++) {
+        //cout<<codigosHuffmanLineal[GC_Lineal[i]]<<" "<<convertirABinario(codigosHuffmanLineal[GC_Lineal[i]])<<" "<<GC_Lineal[i]<<endl;
+        GC_Lineal_Comprimido[i] = convertirABinario(codigosHuffmanLineal[GC_Lineal[i]]);
     }
-    imprimirArreglo(GC_Lineal,Cantidad);
+
+    imprimirArreglo(GC_Lineal_Comprimido,Cantidad);
+    auto resultadoLineal =busquedaBinariaHuffman(&GC_Lineal_Comprimido,sampleLineal,m,claveLineal,b);
+    cout << "Para el arreglo Gap-Coded con distribucion lineal: ";
+    if (resultadoLineal.first != -1) {
+        cout << "La clave " << claveLineal << " se encontro en el indice " << resultadoLineal.first << endl;
+    } else {
+        cout << "La clave " << claveLineal << " no se encontro en el arreglo." << endl;
+    }
+    cout << "Tiempo transcurrido: " << fixed << setprecision(10) << resultadoLineal.second << " Segundos." << endl << endl;
 
     cout<<"####################"<<endl;
     

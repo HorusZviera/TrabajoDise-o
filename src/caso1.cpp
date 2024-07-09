@@ -6,11 +6,8 @@ void Caso1(int ArregloLineal[], int ArregloNormal[],int Cantidad){
     int claveLineal = ArregloLineal[rand() % Cantidad];
     int claveNormal = ArregloNormal[rand() % Cantidad];
 
-    // Busqueda binaria para el arreglo generado con distribucion lineal
-    auto resultadoLineal = busquedaBinaria(ArregloLineal, Cantidad, claveLineal);
-
-    // Busqueda binaria para el arreglo generado con distribucion normal
-    auto resultadoNormal = busquedaBinaria(ArregloNormal, Cantidad, claveNormal);
+    auto resultadoLineal = busquedaBinaria(ArregloLineal, Cantidad, claveLineal,false); // Busqueda binaria para el arreglo generado con distribucion lineal
+    auto resultadoNormal = busquedaBinaria(ArregloNormal, Cantidad, claveNormal,false); // Busqueda binaria para el arreglo generado con distribucion normal
 
     // Mostrar resultados para el arreglo con distribucion lineal
     if (resultadoLineal.first != -1) {
@@ -21,7 +18,6 @@ void Caso1(int ArregloLineal[], int ArregloNormal[],int Cantidad){
         cout << "La clave " << claveLineal << " no se encontro en el arreglo." << endl;
     }
     cout << endl;
-    //cout << "Tiempo transcurrido: " << resultadoLineal.second << " Segundos." << endl << endl;
     cout << "Tiempo transcurrido: " << fixed << setprecision(10) << resultadoLineal.second << " Segundos." << endl << endl;
 
     // Mostrar resultados para el arreglo con distribucion normal

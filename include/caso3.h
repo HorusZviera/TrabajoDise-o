@@ -1,9 +1,11 @@
 #include "generaArreglos.h"
 #include "general.h"
+#include "busquedaBin.h"
 #include <vector>                // Se incluye la biblioteca vector para manejar listas dinámicas
 #include <algorithm>             // Se incluye la biblioteca algorithm para funciones de ordenamiento y búsqueda
 #include <queue>                 // Se incluye la biblioteca queue para manejar colas de prioridad
 #include <unordered_map>        // Se incluye la biblioteca unordered_map para manejar mapas sin orden
+#include <bitset>
 
 // Estructura para representar un nodo en el árbol de Huffman
 struct Nodo {

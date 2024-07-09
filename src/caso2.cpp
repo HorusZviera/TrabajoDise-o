@@ -12,7 +12,7 @@ void Caso2(int ArregloLineal[], int ArregloNormal[],int Cantidad,int m){
     int* sampleLineal = crearSample(ArregloLineal, Cantidad, m);
     int* sampleNormal = crearSample(ArregloNormal, Cantidad, m);
 
-    
+    /*
     cout<<"Lineal"<<endl;
     imprimirArreglo(ArregloLineal,Cantidad);
     imprimirArreglo(GC_Lineal,Cantidad);
@@ -25,15 +25,15 @@ void Caso2(int ArregloLineal[], int ArregloNormal[],int Cantidad,int m){
     imprimirArreglo(sampleNormal, m);
     cout<<endl;
     
+    */
 
     // Datos Busqueda binaria
     int claveLineal = ArregloLineal[rand() % Cantidad];
     int claveNormal = ArregloNormal[rand() % Cantidad];
     int b = Cantidad / m;
 
-
     // Búsqueda binaria Gap-coded lineal
-    auto resultadoLineal = busquedaBinariaGapCoding(GC_Lineal, sampleLineal, m, claveLineal, b);
+    auto resultadoLineal = busquedaBinariaGapCoding(GC_Lineal, sampleLineal, Cantidad, m, claveLineal, b);
     cout << "Para el arreglo Gap-Coded con distribucion lineal: ";
     if (resultadoLineal.first != -1) {
         cout << "La clave " << claveLineal << " se encontro en el indice " << resultadoLineal.first << endl;
@@ -43,7 +43,7 @@ void Caso2(int ArregloLineal[], int ArregloNormal[],int Cantidad,int m){
     cout << "Tiempo transcurrido: " << fixed << setprecision(10) << resultadoLineal.second << " Segundos." << endl << endl;
 
    // Búsqueda binaria Gap-coded Normal
-   auto resultadoNormal = busquedaBinariaGapCoding(GC_Normal, sampleNormal, m, claveNormal, b);
+   auto resultadoNormal = busquedaBinariaGapCoding(GC_Normal, sampleNormal,Cantidad,m, claveNormal, b);
     cout << "Para el arreglo Gap-Coded con distribucion normal: ";
     if (resultadoNormal.first != -1) {
         cout << "La clave " << claveNormal << " se encontro en el indice " << resultadoNormal.first << endl;

@@ -51,6 +51,31 @@ void imprimirArreglo(const int arr[], int n) {
     cout << endl;
 }
 
+void imprimirArreglo(const bitset<8> arr[], int n) {
+    for (int i = 0; i < n; ++i) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+bitset<8> convertirABinario(const string& cadenaBinaria) {
+    // Asegurarse de que la cadena tenga exactamente 8 bits
+    string cadenaBinariaAjustada = cadenaBinaria;
+
+    // Si la cadena es menor de 8 bits, se completan con ceros a la izquierda
+    if (cadenaBinariaAjustada.size() < 8) {
+        cadenaBinariaAjustada.insert(0, 8 - cadenaBinariaAjustada.size(), '0');
+    }
+    // Si la cadena es mayor de 8 bits, se truncan los bits extras
+    else if (cadenaBinariaAjustada.size() > 8) {
+        cadenaBinariaAjustada = cadenaBinariaAjustada.substr(0, 8);
+    }
+
+    // Convertir la cadena ajustada a un número binario de 8 bits
+    bitset<8> binario8Bits(cadenaBinariaAjustada);
+    return binario8Bits;
+}
+
 // Función para imprimir el mapa de frecuencias
 void imprimirMapa(const unordered_map<int, unsigned>& mapaFrecuencias) {
     for (const auto& par : mapaFrecuencias) {
@@ -84,7 +109,7 @@ int main() {
     // Calcular la diferencia de uso de RAM
     long long ramUsage = ramAfter - ramBefore;
 
-    std::cout << "Uso de RAM durante la ejecución: " << ramUsage << " bytes" << std::endl;
+    cout << "Uso de RAM durante la ejecución: " << ramUsage << " bytes" << endl;
 
     return 0;
 */
