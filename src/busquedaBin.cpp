@@ -2,9 +2,7 @@
 
 // Busqueda binaria
 pair<int,double> busquedaBinaria(int A[], int n, int clave, bool ifSample) {
-    // Inicio de tiempo
-    auto start = chrono::high_resolution_clock::now();
-
+    auto start = chrono::high_resolution_clock::now(); // Inicio de tiempo
     int medio;
     int inicio = 0, fin = n - 1;
     while (inicio <= fin) {
@@ -41,12 +39,14 @@ pair<int,double> busquedaBinariaGapCoding(int GC[], int* sample, int Cantidad, i
     // Busqueda lineal sobre el intervalo obtenido por el sample
     //cout<<"Encontro: "<<resultado.first<<endl;
     //cout<<"Clave: "<<clave<<endl;
-    int valor = decodeGap(GC,Cantidad,resultado.first);;
+    int valor = decodeGap(GC,Cantidad,resultado.first);
     //cout<<"Valor: "<<valor<<endl;
-    while(valor!=clave && resultado.first<15){
+    while(valor!=clave){
         resultado.first++;
         //valor = reconstruirValor(GC, sample, resultado.first, b);
-        valor=decodeGap(GC,Cantidad,resultado.first);
+        //valor=decodeGap(GC,Cantidad,resultado.first);
+        valor+=GC[resultado.first];
+
     }
     
     auto end = chrono::high_resolution_clock::now();
@@ -55,20 +55,25 @@ pair<int,double> busquedaBinariaGapCoding(int GC[], int* sample, int Cantidad, i
     return {resultado.first,Tiempo};
 }
 
-pair<int,double> busquedaBinariaHuffman(bitset<8>* GC_Huffman[], int* sample, int n, int clave, int b) {
+pair<int,double> busquedaBinariaHuffman(Nodo* root, bitset<8>* GC_Huffman[], int GC[], int* sample, int Cantidad, int n, int clave, int b) {
     // Inicia el tiempo
     auto start = chrono::high_resolution_clock::now();
 
     auto resultado=busquedaBinaria(sample,n,clave,true); // Realiza la busqueda binaria sobre el sample
-
-    cout<<"Encontro: "<<resultado.first<<endl;
-    /*
+    resultado.first*=b; // Salta al indice correspondiente en el arreglo
+    //imprimirArbolHuffman(root);
     // Busqueda lineal sobre el intervalo obtenido por el sample
-    int valor = reconstruirValor(GC, sample, resultado.first, b);
-    while(valor!=clave){
+    cout<<"Encontro: "<<resultado.first<<endl;
+    int valor=decodeHuffman(root, *GC_Huffman[resultado.first]);
+    cout<<"Gap: "<<valor<<endl;
+    valor = decodeGap(GC,Cantidad,resultado.first);
+    cout<<"Valor: "<<valor<<endl;
+    cout<<"Clave: "<<clave<<endl;
+    while(valor!=clave && resultado.first<15){
         resultado.first++;
-        valor = reconstruirValor(GC, sample, resultado.first, b);
-    }*/
+        valor+=GC[resultado.first];
+        cout<< resultado.first <<" "<< valor <<endl;
+    }
     
     auto end = chrono::high_resolution_clock::now();
     auto duration = end - start;
@@ -76,14 +81,27 @@ pair<int,double> busquedaBinariaHuffman(bitset<8>* GC_Huffman[], int* sample, in
     return {resultado.first,Tiempo};
 }
 
-// Reconstruir valor original usando Gap-Coding y sample
-int reconstruirValor(int GC[], int* sample, int index, int b) {
-    int value = sample[index / b];
-    for (int i = (index / b) * b + 1; i <= index; ++i) {
-        value += GC[i];
+int decodeHuffman(Nodo* root, const std::bitset<8>& encodedData) {
+    Nodo* current = root;
+
+    for (int i = 0; i < 8; ++i) { // asumiendo que el tamaño de los datos codificados es de 8 bits
+        bool bit = encodedData.test(i); // Obtener el bit en la posición i
+
+        if (!bit) {
+            current = current->izquierdo;
+        } else {
+            current = current->derecho;
+        }
+
+        if (current->izquierdo == nullptr && current->derecho == nullptr) {
+            return current->valor; // Retornar el valor decodificado
+        }
     }
-    return value;
+
+    // En un caso real, manejarías adecuadamente las situaciones donde no se puede decodificar completamente.
+    return -1; // Retorno de valor inválido en caso de error
 }
+
 
 int decodeGap(const int encodedArray[], int size, int position) {
     if (position >= size) {
@@ -100,3 +118,5 @@ int decodeGap(const int encodedArray[], int size, int position) {
 
     return decodedValue;
 }
+
+

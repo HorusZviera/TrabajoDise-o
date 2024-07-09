@@ -5,6 +5,11 @@
 #include "../include/caso3.h"
 #include "../include/argumentos.h"
 
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_BLUE    "\x1b[34m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
 int main(int argc, char* argv[]) {
     // Argumentos
     int tamanio;
@@ -13,23 +18,27 @@ int main(int argc, char* argv[]) {
 
     procesarArgumentos(argc, argv, tamanio, semilla);
 
+
+    // Crea los arreglos que se usaran en los casos
+    const int Cantidad = tamanio; // Tamano del arreglo         
+    srand(semilla);
+
+    int *ArregloLineal = new int[Cantidad]; //arreglo Lineal
+    int *ArregloNormal = new int[Cantidad]; //arreglo Normal
+
+    generarArregloLineal(ArregloLineal, Cantidad, 10);  // Generar arreglo ordenado con valores aleatorios de forma lineal
+    generarArregloNormal(ArregloNormal, Cantidad, 100, 20); // Generar arreglo ordenado con valores aleatorios segun una distribucion normal
+
     do {
-        cout << "Que caso quiere ejecutar?" << endl;
-        cout << "1. Caso 1 (Arreglo explicito)" << endl;
-        cout << "2. Caso 2 (Arreglo representado con Gap-Coding)" << endl;
-        cout << "3. Caso 3 (Codifcacion dde Huffman)" << endl;
-        cout << "4. Salir" << endl;
-        cout << "Ingrese su opcion: ";
+        cout << ANSI_COLOR_BLUE << "==================================" << endl;
+        cout << "============== Menú ==============" << endl;
+        cout << "==================================" << endl;
+        cout << ANSI_COLOR_GREEN << "1. "  << "Caso 1 (Arreglo explicito)" << endl;
+        cout << "2. " <<  "Caso 2 (Arreglo representado con Gap-Coding)" << endl;
+        cout << "3. " <<  "Caso 3 (Codificacion de Huffman)" << endl;
+        cout << ANSI_COLOR_RED << "4. " <<  "Salir" << endl;
+        cout << ANSI_COLOR_BLUE << "Ingrese su opción: " << ANSI_COLOR_RESET;
         cin >> opcion;
-
-        const int Cantidad = tamanio; // Tamano del arreglo         
-        srand(semilla);
-
-        int *ArregloLineal = new int[Cantidad]; //arreglo Lineal
-        int *ArregloNormal = new int[Cantidad]; //arreglo Normal
-
-        generarArregloLineal(ArregloLineal, Cantidad, 10);  // Generar arreglo ordenado con valores aleatorios de forma lineal
-        generarArregloNormal(ArregloNormal, Cantidad, 100, 20); // Generar arreglo ordenado con valores aleatorios segun una distribucion normal
 
         switch (opcion) {
             case 1:

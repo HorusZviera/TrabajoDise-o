@@ -19,6 +19,8 @@ void generarArregloNormal(int A[], int n, double media, double desviacion) {
     sort(A, A + n);
 }
 
+//-----------------------------------------------------------------------------------
+
 // Crear arreglo Gap-Coded
 void crearGapCoding(int A[], int GC[], int n) {
     GC[0] = A[0];
@@ -28,7 +30,7 @@ void crearGapCoding(int A[], int GC[], int n) {
 }
 
 //Crear la estructura arreglo dinamico "Sample"
-int* crearSample(int A[], int n, int m) { //m: tamaño sample, n: tamaño arreglo A
+int* crearSample(int A[], int n, int m) { //m: tamano sample, n: tamano arreglo A
     int* sample = new int[m];
     int b = (n / m); //saltos en el arreglo A
     cout << b << endl;
@@ -42,6 +44,8 @@ int* crearSample(int A[], int n, int m) { //m: tamaño sample, n: tamaño arregl
     }
     return sample;
 }
+
+//-----------------------------------------------------------------------------------
 
 // Imprime arreglos
 void imprimirArreglo(const int arr[], int n) {
@@ -57,6 +61,37 @@ void imprimirArreglo(const bitset<8> arr[], int n) {
     }
     cout << endl;
 }
+
+//-----------------------------------------------------------------------------------
+
+// Funcion para imprimir el mapa de frecuencias
+void imprimirMapa(const unordered_map<int, unsigned>& mapaFrecuencias) {
+    for (const auto& par : mapaFrecuencias) {
+        cout << "Valor: " << par.first << " - Frecuencia: " << par.second << endl;
+    }
+}
+
+// Funcion para imprimir un mapa de (int, string)
+void imprimirMapa(const unordered_map<int, string>& mapaFrecuencias) {
+    for (const auto& par : mapaFrecuencias) {
+        cout << "Clave: " << par.first << " - Valor: " << par.second << endl;
+    }
+}
+
+// Función para imprimir el árbol de Huffman (inorder traversal)
+void imprimirArbolHuffman(Nodo* nodo) {
+    if (nodo == nullptr) {
+        return;
+    }
+
+    // Recorrido inorder: izquierdo - raíz - derecho
+    imprimirArbolHuffman(nodo->izquierdo);
+    std::cout << "(" << nodo->valor << ", " << nodo->frecuencia << ") ";
+    imprimirArbolHuffman(nodo->derecho);
+}
+
+
+//-----------------------------------------------------------------------------------
 
 bitset<8> convertirABinario(const string& cadenaBinaria) {
     // Asegurarse de que la cadena tenga exactamente 8 bits
@@ -76,40 +111,3 @@ bitset<8> convertirABinario(const string& cadenaBinaria) {
     return binario8Bits;
 }
 
-// Función para imprimir el mapa de frecuencias
-void imprimirMapa(const unordered_map<int, unsigned>& mapaFrecuencias) {
-    for (const auto& par : mapaFrecuencias) {
-        cout << "Valor: " << par.first << " - Frecuencia: " << par.second << endl;
-    }
-}
-
-// Función para imprimir un mapa de (int, string)
-void imprimirMapa(const unordered_map<int, string>& mapaFrecuencias) {
-    for (const auto& par : mapaFrecuencias) {
-        cout << "Clave: " << par.first << " - Valor: " << par.second << endl;
-    }
-}
-
-/*
-long long getRAMUsage() {
-    struct rusage r_usage;
-    getrusage(RUSAGE_SELF, &r_usage);
-    return r_usage.ru_maxrss;
-}
-*/
-
-
-/*
-int main() {
-    // Llamar a tu función y medir el uso de RAM antes y después
-    long long ramBefore = getRAMUsage();
-    myFunction();
-    long long ramAfter = getRAMUsage();
-
-    // Calcular la diferencia de uso de RAM
-    long long ramUsage = ramAfter - ramBefore;
-
-    cout << "Uso de RAM durante la ejecución: " << ramUsage << " bytes" << endl;
-
-    return 0;
-*/

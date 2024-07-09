@@ -1,6 +1,6 @@
 #include "../include/caso3.h"  // Se incluye el archivo de encabezado caso3.h
 
-// Función para construir el árbol de Huffman
+// Funcion para construir el arbol de Huffman
 Nodo* construirArbolHuffman(const unordered_map<int, unsigned>& mapaFrecuencias) {
    priority_queue<Nodo*,vector<Nodo*>, CompararNodos> colaPrioridad;
 
@@ -9,7 +9,7 @@ Nodo* construirArbolHuffman(const unordered_map<int, unsigned>& mapaFrecuencias)
         colaPrioridad.push(new Nodo(par.first, par.second));
     }
 
-    // Construir el árbol de Huffman fusionando nodos de la cola de prioridad
+    // Construir el arbol de Huffman fusionando nodos de la cola de prioridad
     while (colaPrioridad.size() > 1) {
         Nodo* izquierdo = colaPrioridad.top();
         colaPrioridad.pop();
@@ -26,25 +26,7 @@ Nodo* construirArbolHuffman(const unordered_map<int, unsigned>& mapaFrecuencias)
     return colaPrioridad.top();
 }
 
-void imprimirArbolHuffman(Nodo* nodo, int nivel = 0) {
-    if (nodo == nullptr) {
-        return;
-    }
-
-    // Imprimir espacios en blanco para representar la profundidad del nodo
-    for (int i = 0; i < nivel; i++) {
-        cout << "  ";
-    }
-
-    // Imprimir el valor y la frecuencia del nodo
-    cout << nodo->valor << " (" << nodo->frecuencia << ")" << endl;
-
-    // Recursivamente imprimir los hijos izquierdo y derecho
-    imprimirArbolHuffman(nodo->izquierdo, nivel + 1);
-    imprimirArbolHuffman(nodo->derecho, nivel + 1);
-}
-
-// Función para generar códigos Huffman para cada valor en el árbol de Huffman
+// Funcion para generar codigos Huffman para cada valor en el arbol de Huffman
 void generarCodigosHuffman(Nodo* raiz,unordered_map<int,string>& codigos,string codigo = "") {
     if (raiz->izquierdo == nullptr && raiz->derecho == nullptr) {
         codigos[raiz->valor] = codigo;
@@ -56,7 +38,6 @@ void generarCodigosHuffman(Nodo* raiz,unordered_map<int,string>& codigos,string 
 }
 
 
-
 void Caso3(int ArregloLineal[], int ArregloNormal[], int Cantidad, int m) {
 
     int* GC_Lineal = new int[Cantidad]; //Arreglo Gap-Coded Lineal
@@ -64,10 +45,10 @@ void Caso3(int ArregloLineal[], int ArregloNormal[], int Cantidad, int m) {
 
     int claveLineal = ArregloLineal[rand() % Cantidad];
     int claveNormal = ArregloNormal[rand() % Cantidad];
-
     int b = Cantidad / m;
 
     bitset<8>* GC_Lineal_Comprimido = new bitset<8>[Cantidad];
+    bitset<8>* GC_Normal_Comprimido = new bitset<8>[Cantidad];
 
     // Crea gap coding
     crearGapCoding(ArregloLineal, GC_Lineal, Cantidad);
@@ -77,38 +58,48 @@ void Caso3(int ArregloLineal[], int ArregloNormal[], int Cantidad, int m) {
     int* sampleLineal = crearSample(ArregloLineal, Cantidad, m);
     int* sampleNormal = crearSample(ArregloNormal, Cantidad, m);
 
-    // Codificacion Arreglo Lineal
+    //-----------------------------------------------------------------------------------------------------------
+    // Calcula Frecuencia en los arreglos
     unordered_map<int, unsigned> mapaFrecuenciasLineal;
+    unordered_map<int, unsigned> mapaFrecuenciasNormal;
     for (int i = 0; i < Cantidad; i++) {
-        mapaFrecuenciasLineal[GC_Lineal[i]]++; // Calcular la frecuencia de cada valor en el arreglo lineal
+        mapaFrecuenciasLineal[GC_Lineal[i]]++; 
     }
 
-    Nodo* raiz_Lineal = construirArbolHuffman(mapaFrecuenciasLineal);    // Construir el árbol de Huffman    
+    for (int i = 0; i < Cantidad; i++) {
+        mapaFrecuenciasNormal[GC_Normal[i]]++; 
+    }
+    //-----------------------------------------------------------------------------------------------------------
+    // Construir el arbol de Huffman
+    Nodo* raiz_Lineal = construirArbolHuffman(mapaFrecuenciasLineal);
+    //cout<<"pasooooooooooooooo"<<endl;
+    Nodo* raiz_Normal = construirArbolHuffman(mapaFrecuenciasNormal);
+
     
+    //-----------------------------------------------------------------------------------------------------------
+    // Generar codigos Huffman para cada valor en el arbol de Huffman
     unordered_map<int,string> codigosHuffmanLineal;
-    generarCodigosHuffman(raiz_Lineal, codigosHuffmanLineal); // Generar códigos Huffman para cada valor en el árbol de Huffman
+    generarCodigosHuffman(raiz_Lineal, codigosHuffmanLineal); 
     
+    unordered_map<int,string> codigosHuffmanNormal;
+    generarCodigosHuffman(raiz_Normal, codigosHuffmanNormal); 
 
 
-    
-    cout<<"Lineal"<<endl;
-    imprimirArreglo(ArregloLineal,Cantidad);
-    imprimirArreglo(GC_Lineal,Cantidad);
-    imprimirArreglo(sampleLineal, m);
-
-    cout << "Códigos Huffman Arreglo Lineal:" << endl;  // Imprimir los códigos Huffman generados
-    for (const auto& par : codigosHuffmanLineal) {
-        cout << par.first << ": " << par.second << endl;
-    }
-    cout << endl << endl << endl ;
-
+    //-----------------------------------------------------------------------------------------------------------
+    //Convertir a Binario
     for(int i=0;i<Cantidad;i++) {
         //cout<<codigosHuffmanLineal[GC_Lineal[i]]<<" "<<convertirABinario(codigosHuffmanLineal[GC_Lineal[i]])<<" "<<GC_Lineal[i]<<endl;
         GC_Lineal_Comprimido[i] = convertirABinario(codigosHuffmanLineal[GC_Lineal[i]]);
     }
 
-    imprimirArreglo(GC_Lineal_Comprimido,Cantidad);
-    auto resultadoLineal =busquedaBinariaHuffman(&GC_Lineal_Comprimido,sampleLineal,m,claveLineal,b);
+    for(int i=0;i<Cantidad;i++) {
+       //cout<<codigosHuffmanLineal[GC_Lineal[i]]<<" "<<convertirABinario(codigosHuffmanLineal[GC_Lineal[i]]) <<" "<<GC_Lineal[i]<<endl;
+        GC_Normal_Comprimido[i] = convertirABinario(codigosHuffmanLineal[GC_Normal[i]]);
+    }
+
+    //-----------------------------------------------------------------------------------------------------------
+    //  Busqueda Binaria
+    auto resultadoLineal = busquedaBinariaHuffman(raiz_Lineal, &GC_Lineal_Comprimido, GC_Lineal, sampleLineal, Cantidad, m, claveLineal, b);
     cout << "Para el arreglo Gap-Coded con distribucion lineal: ";
     if (resultadoLineal.first != -1) {
         cout << "La clave " << claveLineal << " se encontro en el indice " << resultadoLineal.first << endl;
@@ -117,8 +108,56 @@ void Caso3(int ArregloLineal[], int ArregloNormal[], int Cantidad, int m) {
     }
     cout << "Tiempo transcurrido: " << fixed << setprecision(10) << resultadoLineal.second << " Segundos." << endl << endl;
 
-    cout<<"####################"<<endl;
+
+    auto resultadoNormal = busquedaBinariaHuffman(raiz_Normal, &GC_Normal_Comprimido, GC_Normal, sampleNormal, Cantidad, m, claveNormal, b);
+    cout << "Para el arreglo Gap-Coded con distribucion Normal: ";
+    if (resultadoLineal.first != -1) {
+        cout << "La clave " << claveNormal << " se encontro en el indice " << resultadoNormal.first << endl;
+    } else {
+        cout << "La clave " << claveNormal << " no se encontro en el arreglo." << endl;
+    }
+    cout << "Tiempo transcurrido: " << fixed << setprecision(10) << resultadoNormal.second << " Segundos." << endl << endl;
     
+    cout<<"####################"<<endl;
+
+
+    //-----------------------------------------------------------------------------------------------------------
+    // Test
+    cout<<"Lineal(Arreglo,GAP,Sample,Huffman)"<<endl;
+    cout << "Arreglo Original: ";
+    imprimirArreglo(ArregloLineal,Cantidad);
+    cout << "Arreglo GAP: ";
+    imprimirArreglo(GC_Lineal,Cantidad);
+    cout << "Arreglo Sample: ";
+    imprimirArreglo(sampleLineal, m);
+    cout<< endl << "####################"<<endl;
+    
+    /*
+    cout << "Codigos Huffman Arreglo Lineal:" << endl;
+    for (const auto& par : codigosHuffmanLineal) {
+        cout << par.first << ": " << par.second << endl;
+    }
+    cout << endl << endl << endl ;
+    */
+    //imprimirArbolHuffman(raiz_Lineal);
+
+
+    
+
+    cout<<"Normal(Arreglo,GAP,Sample,Huffman)"<<endl;
+    cout << "Arreglo Original: ";
+    imprimirArreglo(ArregloNormal,Cantidad);
+    cout << "Arreglo GAP: ";
+    imprimirArreglo(GC_Normal,Cantidad);
+    cout << "Arreglo Sample: ";
+    imprimirArreglo(sampleNormal, m);
+    cout<< endl << "####################"<<endl;
+
+
+
+
+    //imprimirArreglo(GC_Lineal_Comprimido,Cantidad);
+    //imprimirArbolHuffman(raiz_Normal);
 
 
 
@@ -148,12 +187,12 @@ void Caso3(int ArregloLineal[], int ArregloNormal[], int Cantidad, int m) {
         mapaFrecuenciasNormal[ArregloNormal[i]]++; // Calcular la frecuencia de cada valor en el arreglo Normal
     }
 
-    Nodo* raiz_Normal = construirArbolHuffman(mapaFrecuenciasNormal); // Construir el árbol de Huffman
+    Nodo* raiz_Normal = construirArbolHuffman(mapaFrecuenciasNormal); // Construir el arbol de Huffman
 
     unordered_map<int,string> codigosHuffmanNormal; 
-    generarCodigosHuffman(raiz_Normal, codigosHuffmanNormal); // Generar códigos Huffman para cada valor en el árbol de Huffman
+    generarCodigosHuffman(raiz_Normal, codigosHuffmanNormal); // Generar codigos Huffman para cada valor en el arbol de Huffman
     
-    cout << "Códigos Huffman Arreglo Normal:" << endl; // Imprimir los códigos Huffman generados
+    cout << "Codigos Huffman Arreglo Normal:" << endl; // Imprimir los codigos Huffman generados
     for (const auto& par : codigosHuffmanNormal) {
         cout << par.first << ": " << par.second << endl;
     }
@@ -162,15 +201,6 @@ void Caso3(int ArregloLineal[], int ArregloNormal[], int Cantidad, int m) {
     
 }
 
-
-
-
-
-/*
-    // Funciones que pueden ayudar
-        imprimirMapa(mapaFrecuencias); // Se imprime el mapa de frecuencias
-        imprimirArbolHuffman(raiz_Lineal); // Imprimir el árbol de Huffman
-*/
 
 
 
